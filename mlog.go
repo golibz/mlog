@@ -280,3 +280,7 @@ func FatalIfError(err error) {
 		os.Exit(255)
 	}
 }
+
+func init() {
+	doLogging(LevelInfo, "")
+}
