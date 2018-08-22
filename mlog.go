@@ -209,11 +209,11 @@ func doLogging(logLevel LogLevel, fileName string, maxBytes, backupCount int) {
 	}
 
 	Logger = mlog{
-		Trace:   log.New(traceHandle, "T: ", DefaultFlags),
-		Info:    log.New(infoHandle, "I: ", DefaultFlags),
-		Warning: log.New(warnHandle, "W: ", DefaultFlags),
-		Error:   log.New(errorHandle, "E: ", DefaultFlags),
-		Fatal:   log.New(errorHandle, "F: ", DefaultFlags),
+		Trace:   log.New(traceHandle, "[ ", DefaultFlags),
+		Info:    log.New(infoHandle, "[ ", DefaultFlags),
+		Warning: log.New(warnHandle, "[ ", DefaultFlags),
+		Error:   log.New(errorHandle, "[ ", DefaultFlags),
+		Fatal:   log.New(errorHandle, "[ ", DefaultFlags),
 		LogFile: fileHandle,
 	}
 
@@ -224,28 +224,28 @@ func doLogging(logLevel LogLevel, fileName string, maxBytes, backupCount int) {
 
 // Trace writes to the Trace destination
 func Trace(format string, a ...interface{}) {
-	Logger.Trace.Output(2, "- " + fmt.Sprintf(format, a...))
+	Logger.Trace.Output(2, "] " + fmt.Sprintf(format, a...))
 }
 
 //** INFO
 
 // Info writes to the Info destination
 func Info(format string, a ...interface{}) {
-	Logger.Info.Output(2, "- " + fmt.Sprintf(format, a...))
+	Logger.Info.Output(2, "] " + fmt.Sprintf(format, a...))
 }
 
 //** WARNING
 
 // Warning writes to the Warning destination
 func Warning(format string, a ...interface{}) {
-	Logger.Warning.Output(2, "- " + fmt.Sprintf(format, a...))
+	Logger.Warning.Output(2, "] " + fmt.Sprintf(format, a...))
 }
 
 //** ERROR
 
 // Error writes to the Error destination and accepts an err
 func Error(err error) {
-	Logger.Error.Output(2, "- " + fmt.Sprintf("%s\n", err))
+	Logger.Error.Output(2, "] " + fmt.Sprintf("%s\n", err))
 }
 
 // IfError is a shortcut function for log.Error if error
@@ -259,14 +259,14 @@ func IfError(err error) {
 
 // Fatal writes to the Fatal destination and exits with an error 255 code
 func Fatal(a ...interface{}) {
-	Logger.Fatal.Output(2, "- " + fmt.Sprint(a...))
+	Logger.Fatal.Output(2, "] " + fmt.Sprint(a...))
 	Sync()
 	os.Exit(255)
 }
 
 // Fatalf writes to the Fatal destination and exits with an error 255 code
 func Fatalf(format string, a ...interface{}) {
-	Logger.Fatal.Output(2, "- " + fmt.Sprintf(format, a...))
+	Logger.Fatal.Output(2, "] " + fmt.Sprintf(format, a...))
 	Sync()
 	os.Exit(255)
 }
@@ -275,7 +275,7 @@ func Fatalf(format string, a ...interface{}) {
 // exits with an error 255 code
 func FatalIfError(err error) {
 	if err != nil {
-		Logger.Fatal.Output(2, "- " + fmt.Sprintf("%s\n", err))
+		Logger.Fatal.Output(2, "] " + fmt.Sprintf("%s\n", err))
 		Sync()
 		os.Exit(255)
 	}
