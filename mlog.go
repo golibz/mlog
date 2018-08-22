@@ -282,5 +282,5 @@ func FatalIfError(err error) {
 }
 
 func init() {
-	doLogging(LevelInfo, "")
+	doLogging(LevelInfo, "", MaxBytes, BackupCount)
 }
